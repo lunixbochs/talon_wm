@@ -112,9 +112,9 @@ def toggle_window_rect(win: ui.Window, rect: Rect, fuzz=4) -> None:
         abs(rect.height - win.rect.height),
     )
     if (deviance <= fuzz):
-        if win_last_rect[win] != None:
-            win.rect = win_last_rect[win]
-            del win_last_rect[win]
+        last_rect = win_last_rect.get(win)
+        if last_rect is not None:
+            win.rect = last_rect
         else:
             pos = rect.pos + win.screen.visible_rect.center - rect.center
             rect.x, rect.y = pos
